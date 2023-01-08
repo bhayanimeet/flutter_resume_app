@@ -21,7 +21,7 @@ void main() {
       routes: {
         '/': (context) => const Resume(),
         'option': (context) => const Options(),
-        'contact': (context) => const contact(),
+        'contact': (context) => const Contact(),
         'carrier': (context) => const Carrier(),
         'person': (context) => const Personal(),
         'education': (context) => const Education(),

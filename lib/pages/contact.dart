@@ -1,4 +1,42 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:image_picker/image_picker.dart';
+import 'Global.dart';
+import 'dart:io';
 
+class Contact extends StatefulWidget {
+  const Contact({Key? key}) : super(key: key);
+
+  @override
+  State<Contact> createState() => _ContactState();
+}
+
+class _ContactState extends State<Contact> {
+  TextEditingController name = TextEditingController(text: Global.name);
+  TextEditingController email = TextEditingController(text: Global.email);
+  TextEditingController number = TextEditingController(
+      text: (Global.number != null) ? Global.number.toString() : null);
+  TextEditingController address = TextEditingController(text: Global.address);
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    file = Global.file;
+  }
+
+  ImagePicker image = ImagePicker();
+  File? file;
+
+  camera() async {
+    final co = await image.pickImage(source: ImageSource.camera);
+    file = File(co!.path);
+  }
+
+  gallery() async {
+    final go = await image.pickImage(source: ImageSource.gallery);
+    file = File(go!.path);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +106,7 @@
                       shadowDarkColor: Colors.grey.shade500,
                     ),
                     child: Container(
-                      height: MediaQuery.of(context).size.height * 0.47,
+                      height: MediaQuery.of(context).size.height * 0.45,
                       width: MediaQuery.of(context).size.width,
                       color: Colors.grey.shade50,
                       child: Padding(
@@ -165,8 +203,9 @@
                                         hintText: "Email",
                                         focusedBorder:
                                             const UnderlineInputBorder(
-                                                borderSide: BorderSide(
-                                                    color: Colors.black)),
+                                          borderSide:
+                                              BorderSide(color: Colors.black),
+                                        ),
                                         hintStyle: TextStyle(
                                           fontSize: 20,
                                           fontWeight: FontWeight.w500,
